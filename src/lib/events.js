@@ -99,7 +99,7 @@ export default () => {
     clearTimeout(_timeout);
     _timeout = setTimeout(() => {
       if (_el && _el.ptrElement && _shared.state === 'pending') {
-        _ptr.onReset(_el);
+        _ptr.teardownDOM(_el);
       }
     }, 500);
 

@@ -37,6 +37,14 @@ function setupDOM(handler) {
   return handler;
 }
 
+function teardownDOM(handler) {
+  // remove previous ptr-element from DOM
+  if (handler.ptrElement && handler.ptrElement.parentNode) {
+    handler.ptrElement.parentNode.removeChild(handler.ptrElement);
+    handler.ptrElement = null;
+  }
+}
+
 function onReset(handler) {
   if (!handler.ptrElement) return;
 
@@ -44,11 +52,7 @@ function onReset(handler) {
   handler.ptrElement.style[handler.cssProp] = '0px';
 
   setTimeout(() => {
-    // remove previous ptr-element from DOM
-    if (handler.ptrElement && handler.ptrElement.parentNode) {
-      handler.ptrElement.parentNode.removeChild(handler.ptrElement);
-      handler.ptrElement = null;
-    }
+    teardownDOM(handler);
 
     // reset state
     _shared.state = 'pending';
@@ -84,6 +88,7 @@ function update(handler) {
 
 export default {
   setupDOM,
+  teardownDOM,
   onReset,
   update,
 };

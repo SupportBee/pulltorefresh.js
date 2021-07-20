@@ -59,17 +59,20 @@ function setupDOM(handler) {
   return handler;
 }
 
+function teardownDOM(handler) {
+  // remove previous ptr-element from DOM
+  if (handler.ptrElement && handler.ptrElement.parentNode) {
+    handler.ptrElement.parentNode.removeChild(handler.ptrElement);
+    handler.ptrElement = null;
+  }
+}
+
 function onReset(handler) {
   if (!handler.ptrElement) { return; }
   handler.ptrElement.classList.remove(((handler.classPrefix) + "refresh"));
   handler.ptrElement.style[handler.cssProp] = '0px';
   setTimeout(function () {
-    // remove previous ptr-element from DOM
-    if (handler.ptrElement && handler.ptrElement.parentNode) {
-      handler.ptrElement.parentNode.removeChild(handler.ptrElement);
-      handler.ptrElement = null;
-    } // reset state
-
+    teardownDOM(handler); // reset state
 
     _shared.state = 'pending';
   }, handler.refreshTimeout);
@@ -104,6 +107,7 @@ function update(handler) {
 
 var _ptr = {
   setupDOM: setupDOM,
+  teardownDOM: teardownDOM,
   onReset: onReset,
   update: update
 };
@@ -211,7 +215,7 @@ var _setupEvents = (function () {
     clearTimeout(_timeout);
     _timeout = setTimeout(function () {
       if (_el && _el.ptrElement && _shared.state === 'pending') {
-        _ptr.onReset(_el);
+        _ptr.teardownDOM(_el);
       }
     }, 500);
 
