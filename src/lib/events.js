@@ -26,6 +26,7 @@ export default () => {
         _shared.pullStartY = screenY(e);
       }
 
+      clearTimeout(_timeout);
       clearTimeout(_shared.timeout);
 
       _ptr.update(target);
