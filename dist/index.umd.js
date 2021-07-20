@@ -1,5 +1,5 @@
 /*!
- * pulltorefreshjs v0.1.22
+ * pulltorefreshjs v0.1.23
  * (c) Rafael Soto
  * Released under the MIT License.
  */
