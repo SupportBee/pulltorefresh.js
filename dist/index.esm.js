@@ -378,9 +378,9 @@ var index = {
       _shared.events = null;
     }
 
-    _shared.handlers.forEach(function (h) {
-      h.destroy();
-    });
+    while (_shared.handlers.length) {
+      _shared.handlers[0].destroy();
+    }
   },
 
   init: function init(options) {

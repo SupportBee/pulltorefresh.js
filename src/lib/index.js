@@ -17,9 +17,9 @@ export default {
       _shared.events = null;
     }
 
-    _shared.handlers.forEach(h => {
-      h.destroy();
-    });
+    while (_shared.handlers.length) {
+      _shared.handlers[0].destroy();
+    }
   },
   init(options = {}) {
     const handler = _setupHandler(options);
